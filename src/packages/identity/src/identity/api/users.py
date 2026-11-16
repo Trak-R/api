@@ -1,4 +1,5 @@
 """User API routes."""
+
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Query, status
@@ -34,7 +35,7 @@ async def list_all(
     current_user: User = Depends(authorization(RoleType.ADMIN)),
 ) -> ListResponse[UserResponse]:
     """List users with pagination metadata.
-    
+
     Requires authentication (any authenticated user can access).
 
     Same query parameters as `/users` endpoint, but returns pagination info.
@@ -56,7 +57,7 @@ async def update_user(
     current_user: User = Depends(authorization(RoleType.ADMIN)),
 ) -> UserResponse:
     """Update a user by ID.
-    
+
     Requires ADMIN role.
 
     Args:
@@ -86,7 +87,7 @@ async def delete(
     current_user: User = Depends(authorization(RoleType.ADMIN)),
 ):
     """Delete a user by ID.
-    
+
     Requires ADMIN role.
 
     Args:

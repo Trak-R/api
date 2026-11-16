@@ -1,4 +1,5 @@
 """Base repository for database operations."""
+
 from typing import Generic, TypeVar, Optional, Type, Any
 
 from sqlalchemy import select, text
@@ -107,11 +108,15 @@ class BaseRepository(Generic[ModelType]):
             query = select(self.model).where(self.model.id == id)
             result = await session.execute(query)
             db_obj = result.scalar_one_or_none()
-            
+
             if not db_obj:
                 return None
 
-            update_data = obj_in if isinstance(obj_in, dict) else obj_in.model_dump(exclude_unset=True)
+            update_data = (
+                obj_in
+                if isinstance(obj_in, dict)
+                else obj_in.model_dump(exclude_unset=True)
+            )
 
             for field, value in update_data.items():
                 setattr(db_obj, field, value)
@@ -134,7 +139,7 @@ class BaseRepository(Generic[ModelType]):
             query = select(self.model).where(self.model.id == id)
             result = await session.execute(query)
             db_obj = result.scalar_one_or_none()
-            
+
             if not db_obj:
                 return False
 
@@ -204,8 +209,8 @@ class BaseRepository(Generic[ModelType]):
                 result = await session.execute(stmt, parameters)
             else:
                 result = await session.execute(stmt)
-            
+
             if commit:
                 await session.commit()
-            
+
             return result

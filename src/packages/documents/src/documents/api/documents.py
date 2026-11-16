@@ -1,4 +1,5 @@
 """Document API routes."""
+
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Query, UploadFile, status
@@ -31,22 +32,22 @@ async def create_upload(
     service: DocumentService = Depends(get_document_service),
 ) -> DocumentUploadResponse:
     """Create a document record and get a presigned URL for uploading to S3.
-    
+
     This endpoint creates a document record in the database and returns a presigned
     URL that can be used to upload the file directly to S3. The file should be
     uploaded using a PUT request to the returned URL.
-    
+
     Args:
         file: File
         current_user: Current authenticated user
         service: Document service instance
-        
+
     Returns:
         Dictionary containing:
         - document: Document record
         - upload_url: Presigned URL for uploading
         - s3_key: S3 key where the file will be stored
-        
+
     Example:
         POST /documents/upload
         {
@@ -54,7 +55,7 @@ async def create_upload(
             "content_type": "application/pdf",
             "file_size": 1024
         }
-        
+
         Response:
         {
             "document": {...},
@@ -76,10 +77,10 @@ async def list_all(
     query: Querymate = Depends(Querymate.fastapi_dependency),
     q: Optional[str] = Query(None),
     service: DocumentService = Depends(get_document_service),
-    current_user = Depends(authorization())
+    current_user=Depends(authorization()),
 ) -> ListResponse[DocumentResponse]:
     """List documents with pagination metadata.
-    
+
     Query parameters (via QueryMate):
     - `filter`: Filter conditions (e.g., `{"filename": {"like": "%.pdf"}}`)
     - `sort`: Sort fields (e.g., `["-created_at", "filename"]`)
@@ -87,7 +88,7 @@ async def list_all(
     - `limit`: Maximum records (default: 10, max: 200)
     - `offset`: Skip records (default: 0)
     - `include_pagination`: Include pagination metadata (boolean)
-    
+
     Examples:
     - GET /documents?limit=20&offset=0
     - GET /documents?filter[filename][like]=%.pdf
@@ -104,16 +105,16 @@ async def list_all(
 async def get_download_url(
     document_id: int,
     service: DocumentService = Depends(get_document_service),
-    current_user = Depends(authorization())
+    current_user=Depends(authorization()),
 ) -> dict:
     """Get a presigned download URL for a specific document.
-    
+
     Args:
         document_id: Document ID
-        
+
     Returns:
         Dictionary with download_url
-        
+
     Raises:
         NotFoundError: If document not found
     """

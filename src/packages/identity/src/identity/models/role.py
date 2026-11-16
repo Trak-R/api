@@ -1,4 +1,5 @@
 """Role model."""
+
 from typing import Optional, TYPE_CHECKING
 
 from sqlmodel import Field, Relationship
@@ -18,6 +19,6 @@ class Role(BaseModel, table=True):
     name: str = Field(unique=True, index=True, max_length=50)
     description: Optional[str] = Field(default=None, max_length=255)
     is_active: bool = Field(default=True)
-    
+
     # Relationship
     users: list["User"] = Relationship(back_populates="role")

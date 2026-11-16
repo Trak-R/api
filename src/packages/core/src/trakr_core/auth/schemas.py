@@ -1,4 +1,5 @@
 """Authentication schemas."""
+
 import datetime
 from typing import Optional
 
@@ -13,9 +14,7 @@ class Token(BaseModel):
     token_type: str = "bearer"
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
 
 
@@ -25,9 +24,7 @@ class TokenData(BaseModel):
     user_id: Optional[int] = None
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
 
 
@@ -47,24 +44,20 @@ class UserRegister(BaseModel):
     full_name: Optional[str] = Field(default=None, max_length=200)
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
 
 
 class RoleResponse(BaseModel):
     """Role response schema."""
-    
+
     id: int
     name: str
     description: Optional[str]
     is_active: bool
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
 
 
@@ -82,7 +75,5 @@ class UserResponse(BaseModel):
     updated_at: Optional[datetime.datetime] = None
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )

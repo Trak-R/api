@@ -1,4 +1,5 @@
 """Alert enums."""
+
 from enum import Enum
 
 

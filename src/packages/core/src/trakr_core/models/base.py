@@ -27,7 +27,7 @@ class TimestampMixin:
 
 class BaseModel(SQLModel, TimestampMixin):
     """Base model with common fields and methods.
-    
+
     Use table=True to create a database table, table=False for API schemas.
     """
 
@@ -37,4 +37,5 @@ class BaseModel(SQLModel, TimestampMixin):
 
 class VibeifyModel(BaseModel, table=False):
     """Base model for API schemas (non-table models)."""
+
     pass

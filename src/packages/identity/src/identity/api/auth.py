@@ -1,4 +1,5 @@
 """Authentication API routes."""
+
 from fastapi import APIRouter, Depends, status
 from starlette.responses import Response
 
@@ -13,7 +14,9 @@ settings = get_settings()
 router = APIRouter(prefix="", tags=["Auth"])
 
 
-@router.post("/register", responses=ERROR_RESPONSES, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register", responses=ERROR_RESPONSES, status_code=status.HTTP_201_CREATED
+)
 async def register(
     user_data: UserRegister,
 ):
@@ -30,9 +33,7 @@ async def register(
     """
     user_service = UserService()
     await user_service.register_user(user_data)
-    return Response(
-        status_code=status.HTTP_201_CREATED
-    )
+    return Response(status_code=status.HTTP_201_CREATED)
 
 
 @router.post("/login", responses=ERROR_RESPONSES, response_model=Token)

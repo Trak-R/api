@@ -1,4 +1,5 @@
 """Security utilities for authentication and password hashing."""
+
 from datetime import datetime, timedelta, timezone
 import hashlib
 from typing import Optional
@@ -22,9 +23,11 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         True if password matches, False otherwise
     """
     # Always pre-hash with SHA256 to avoid bcrypt's 72-byte limit
-    password_bytes = plain_password.encode('utf-8')
-    sha256_hash_bytes = hashlib.sha256(password_bytes).digest()  # Use digest() to get bytes, not hexdigest()
-    return bcrypt_lib.checkpw(sha256_hash_bytes, hashed_password.encode('utf-8'))
+    password_bytes = plain_password.encode("utf-8")
+    sha256_hash_bytes = hashlib.sha256(
+        password_bytes
+    ).digest()  # Use digest() to get bytes, not hexdigest()
+    return bcrypt_lib.checkpw(sha256_hash_bytes, hashed_password.encode("utf-8"))
 
 
 def get_password_hash(password: str) -> str:
@@ -38,12 +41,12 @@ def get_password_hash(password: str) -> str:
     """
     # Always pre-hash with SHA256 to avoid bcrypt's 72-byte limit
     # This ensures consistent behavior regardless of password length
-    password_bytes = password.encode('utf-8')
+    password_bytes = password.encode("utf-8")
     # Use digest() to get raw bytes (32 bytes) instead of hexdigest() (64 hex chars = 64 bytes)
     sha256_hash_bytes = hashlib.sha256(password_bytes).digest()
     # Use bcrypt library directly with bytes (32 bytes from SHA256 digest)
     hashed = bcrypt_lib.hashpw(sha256_hash_bytes, bcrypt_lib.gensalt())
-    return hashed.decode('utf-8')  # Convert back to string for storage
+    return hashed.decode("utf-8")  # Convert back to string for storage
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
@@ -57,14 +60,18 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
         Encoded JWT token
     """
     to_encode = data.copy()
-    
+
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    
+        expire = datetime.now(timezone.utc) + timedelta(
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        )
+
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
 
 
@@ -78,7 +85,9 @@ def decode_access_token(token: str) -> Optional[dict]:
         Decoded token payload or None if invalid
     """
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
         return payload
     except JWTError:
         return None

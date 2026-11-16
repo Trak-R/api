@@ -1,4 +1,5 @@
 """Identity enums."""
+
 from enum import Enum
 
 

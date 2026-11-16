@@ -1,4 +1,5 @@
 """Celery application configuration."""
+
 from datetime import timedelta
 
 from celery import Celery

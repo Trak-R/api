@@ -1,4 +1,5 @@
 """Database connection and session management."""
+
 import os
 from typing import AsyncGenerator
 
@@ -56,6 +57,7 @@ def _get_sessionmaker() -> async_sessionmaker[AsyncSession]:
 def AsyncSessionLocal() -> AsyncSession:
     """Backwards-compatible session factory used throughout the codebase."""
     return _get_sessionmaker()()
+
 
 # Base class for models - SQLModel provides its own Base
 # SQLModel's metadata is compatible with SQLAlchemy for Alembic
