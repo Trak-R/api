@@ -1,0 +1,76 @@
+"""Application configuration settings."""
+from functools import lru_cache
+from typing import Optional
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    """Application settings loaded from environment variables."""
+
+    # API Settings
+    API_V1_PREFIX: str = "/api/v1"
+    PROJECT_NAME: str = "Trakr API"
+    PROJECT_DESCRIPTION: str = "Trakr API."
+    VERSION: str = "0.1.0"
+    DEBUG: bool = False
+
+    # Database Settings
+    DATABASE_URL: Optional[str] = None
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = "postgres"
+    DB_NAME: str = "vibeify"
+    LOG_LEVEL: str = "INFO"
+    LOG_FILE: Optional[str] = "logs/app.log"
+
+    @property
+    def database_url(self) -> str:
+        """Construct database URL from components or use DATABASE_URL if provided."""
+        if self.DATABASE_URL:
+            return self.DATABASE_URL
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+    # CORS Settings
+    CORS_ORIGINS: list[str] = ["*"]
+
+    # Security Settings
+    SECRET_KEY: str = "your-secret-key-change-this-in-production"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    # Celery Settings
+    REDIS_URL: str = "redis://localhost:6379/0"
+    CELERY_BROKER_URL: Optional[str] = None
+    CELERY_RESULT_BACKEND: Optional[str] = None
+
+    @property
+    def celery_broker_url(self) -> str:
+        """Get Celery broker URL."""
+        return self.CELERY_BROKER_URL or self.REDIS_URL
+
+    @property
+    def celery_result_backend(self) -> str:
+        """Get Celery result backend URL."""
+        return self.CELERY_RESULT_BACKEND or self.REDIS_URL
+
+    AWS_ACCESS_KEY_ID: Optional[str] = None
+    AWS_SECRET_ACCESS_KEY: Optional[str] = None
+    AWS_REGION: str = "us-east-1"
+    S3_BUCKET_NAME: str = "vibeify-documents"
+    S3_PRESIGNED_URL_EXPIRATION: int = 3600
+    S3_ENDPOINT_URL: Optional[str] = None
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="ignore",
+    )
+
+
+@lru_cache()
+def get_settings() -> Settings:
+    """Get cached settings instance."""
+    return Settings()
