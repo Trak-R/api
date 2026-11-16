@@ -11,6 +11,8 @@ dependencies = [
     "trakr-identity",
     "trakr-documents",
     "trakr-alerts",
+    "trakr-aircraft",
+    "trakr-aircraft-telemetry",
     "uvicorn>=0.40.0,<0.41.0",
     "alembic>=1.18.1,<2.0.0",
     "psycopg2-binary>=2.9.10,<3.0.0",
@@ -21,6 +23,8 @@ trakr-core = { workspace = true }
 trakr-identity = { workspace = true }
 trakr-documents = { workspace = true }
 trakr-alerts = { workspace = true }
+trakr-aircraft = { workspace = true }
+trakr-aircraft-telemetry = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]

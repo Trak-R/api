@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr.iml" filepath="$PROJECT_DIR$/.idea/trakr.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-aircraft.iml" filepath="$PROJECT_DIR$/.idea/trakr-aircraft.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-aircraft-telemetry.iml" filepath="$PROJECT_DIR$/.idea/trakr-aircraft-telemetry.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-alerts.iml" filepath="$PROJECT_DIR$/.idea/trakr-alerts.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-anomalies.iml" filepath="$PROJECT_DIR$/.idea/trakr-anomalies.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-anomaly-detector.iml" filepath="$PROJECT_DIR$/.idea/trakr-anomaly-detector.iml" />

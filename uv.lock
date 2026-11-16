@@ -6,6 +6,7 @@ requires-python = ">=3.12"
 members = [
     "trakr",
     "trakr-aircraft",
+    "trakr-aircraft-telemetry",
     "trakr-alerts",
     "trakr-anomalies",
     "trakr-anomaly-detector",
@@ -2414,10 +2415,29 @@ version = "0.1.0"
 source = { editable = "packages/aircraft" }
 dependencies = [
     { name = "trakr-core" },
+    { name = "trakr-identity" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [
+    { name = "trakr-core", editable = "packages/core" },
+    { name = "trakr-identity", editable = "packages/identity" },
+]
+
+[[package]]
+name = "trakr-aircraft-telemetry"
+version = "0.1.0"
+source = { editable = "packages/aircraft_telemetry" }
+dependencies = [
+    { name = "trakr-core" },
+    { name = "trakr-identity" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "trakr-core", editable = "packages/core" },
+    { name = "trakr-identity", editable = "packages/identity" },
+]
 
 [[package]]
 name = "trakr-alerts"
@@ -2459,6 +2479,8 @@ source = { editable = "apps/api" }
 dependencies = [
     { name = "alembic" },
     { name = "psycopg2-binary" },
+    { name = "trakr-aircraft" },
+    { name = "trakr-aircraft-telemetry" },
     { name = "trakr-alerts" },
     { name = "trakr-core" },
     { name = "trakr-documents" },
@@ -2470,6 +2492,8 @@ dependencies = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.18.1,<2.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10,<3.0.0" },
+    { name = "trakr-aircraft", editable = "packages/aircraft" },
+    { name = "trakr-aircraft-telemetry", editable = "packages/aircraft_telemetry" },
     { name = "trakr-alerts", editable = "packages/alerts" },
     { name = "trakr-core", editable = "packages/core" },
     { name = "trakr-documents", editable = "packages/documents" },

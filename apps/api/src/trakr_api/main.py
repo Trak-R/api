@@ -1,4 +1,5 @@
 """Main FastAPI application entry point."""
+
 from contextlib import asynccontextmanager
 
 from fastapi import APIRouter, FastAPI, HTTPException, Request, status
@@ -11,7 +12,13 @@ from identity.api.auth import router as auth_router
 from trakr_core.config import get_settings
 from trakr_core.database import close_db, init_db
 from documents.api import router as documents_router
-from trakr_core.exceptions import ServiceException, http_error_handler, request_validation_exception_handler
+from aircraft.api import router as aircraft_router
+from aircraft_telemetry.api import router as aircraft_telemetry_router
+from trakr_core.exceptions import (
+    ServiceException,
+    http_error_handler,
+    request_validation_exception_handler,
+)
 from identity.api import router as users_router
 from trakr_core.logging import get_logger, setup_logging
 from trakr_core.schemas.errors import ErrorResponse
@@ -20,12 +27,15 @@ api_router = APIRouter()
 api_router.include_router(auth_router)
 api_router.include_router(users_router)
 api_router.include_router(documents_router)
+api_router.include_router(aircraft_router)
+api_router.include_router(aircraft_telemetry_router)
 api_router.include_router(jobs_router)
 
 settings = get_settings()
 
 setup_logging()
 logger = get_logger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -54,6 +64,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.middleware("http")
 async def secure_headers(request: Request, call_next):
     try:
@@ -63,24 +74,26 @@ async def secure_headers(request: Request, call_next):
         detail = str(exc) if settings.DEBUG else "An unexpected error occurred."
         logger.exception(detail)
         response = JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content=ErrorResponse(
-            error="Internal server error",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=detail,
-        ).model_dump(exclude_unset=True, by_alias=True)
-    )
+            content=ErrorResponse(
+                error="Internal server error",
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=detail,
+            ).model_dump(exclude_unset=True, by_alias=True),
+        )
 
     response.headers.setdefault(
-        "Access-Control-Allow-Origin",
-        request.headers.get("origin", "")
+        "Access-Control-Allow-Origin", request.headers.get("origin", "")
     )
     response.headers.setdefault("Access-Control-Allow-Credentials", "true")
 
     return response
 
+
 @app.exception_handler(ServiceException)
-async def service_exception_handler(request: Request, exc: ServiceException) -> JSONResponse:
+async def service_exception_handler(
+    request: Request, exc: ServiceException
+) -> JSONResponse:
     """Handle service layer exceptions with standardized error format.
 
     Args:
@@ -110,6 +123,7 @@ async def validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
     return await request_validation_exception_handler(request, exc)
+
 
 # Include API router
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)

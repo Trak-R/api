@@ -1,4 +1,5 @@
 """Alembic environment configuration for migrations."""
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config, pool
@@ -17,6 +18,8 @@ from alerts.models.alert import Alert  # noqa: F401
 from documents.models.document import Document  # noqa: F401
 from identity.models.role import Role  # noqa: F401
 from identity.models.user import User  # noqa: F401
+from aircraft.models.aircraft import Aircraft  # noqa: F401
+from aircraft_telemetry.models.aircraft_telemetry import AircraftTelemetry  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -32,7 +35,7 @@ if config.config_file_name is not None:
 settings = get_settings()
 database_url = settings.database_url
 # Replace asyncpg driver with psycopg2 for sync operations in Alembic
-sync_url = database_url.replace("postgresql+asyncpg://", "postgresql://")
+sync_url = database_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://")
 config.set_main_option("sqlalchemy.url", sync_url)
 
 # add your model's MetaData object here

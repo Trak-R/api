@@ -6,9 +6,11 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="trakr-alerts" exported="" />
+    <orderEntry type="module" module-name="trakr-aircraft" exported="" />
     <orderEntry type="module" module-name="trakr-identity" exported="" />
     <orderEntry type="module" module-name="trakr-documents" exported="" />
     <orderEntry type="module" module-name="trakr-core" exported="" />
+    <orderEntry type="module" module-name="trakr-aircraft-telemetry" exported="" />
     <orderEntry type="jdk" jdkName="~/Documents/repos/trakr/api/.venv" jdkType="Python SDK" />
   </component>
 </module>

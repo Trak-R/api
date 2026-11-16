@@ -1,0 +1,30 @@
+[project]
+name = "trakr-aircraft-telemetry"
+version = "0.1.0"
+description = "Trakr aircraft_telemetry domain"
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+    "trakr-identity",
+]
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+trakr-identity = { workspace = true }
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "aircraft_telemetry" = "src" }
+packages = [
+    "aircraft_telemetry",
+    "aircraft_telemetry.api",
+    "aircraft_telemetry.models",
+    "aircraft_telemetry.repository",
+    "aircraft_telemetry.schemas",
+    "aircraft_telemetry.services",
+    "aircraft_telemetry.tasks",
+    "aircraft_telemetry.tests",
+]
