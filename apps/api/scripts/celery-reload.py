@@ -27,7 +27,7 @@ def main():
         sys.exit(1)
     
     celery_args = sys.argv[1:]
-    watch_paths = [Path("/app/apps/api/src"), Path("/app/packages/core/src")]
+    watch_paths = [Path("/app/apps/api/src"), Path("/app/src/packages/core/src")]
     
     print(f"Starting Celery with hot reload: {' '.join(celery_args)}")
     print(f"Watching: {', '.join(str(path) for path in watch_paths)}")

@@ -2412,7 +2412,7 @@ dev = [
 [[package]]
 name = "trakr-aircraft"
 version = "0.1.0"
-source = { editable = "packages/aircraft" }
+source = { editable = "src/packages/aircraft" }
 dependencies = [
     { name = "trakr-core" },
     { name = "trakr-identity" },
@@ -2420,14 +2420,14 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
+    { name = "trakr-core", editable = "src/packages/core" },
+    { name = "trakr-identity", editable = "src/packages/identity" },
 ]
 
 [[package]]
 name = "trakr-aircraft-telemetry"
 version = "0.1.0"
-source = { editable = "packages/aircraft_telemetry" }
+source = { editable = "src/packages/aircraft_telemetry" }
 dependencies = [
     { name = "trakr-core" },
     { name = "trakr-identity" },
@@ -2435,31 +2435,31 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
+    { name = "trakr-core", editable = "src/packages/core" },
+    { name = "trakr-identity", editable = "src/packages/identity" },
 ]
 
 [[package]]
 name = "trakr-alerts"
 version = "0.1.0"
-source = { editable = "packages/alerts" }
+source = { editable = "src/packages/alerts" }
 dependencies = [
     { name = "trakr-core" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "trakr-anomalies"
 version = "0.1.0"
-source = { editable = "packages/anomalies" }
+source = { editable = "src/packages/anomalies" }
 dependencies = [
     { name = "trakr-core" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "trakr-anomaly-detector"
@@ -2470,7 +2470,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "trakr-api"
@@ -2492,19 +2492,19 @@ dependencies = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.18.1,<2.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10,<3.0.0" },
-    { name = "trakr-aircraft", editable = "packages/aircraft" },
-    { name = "trakr-aircraft-telemetry", editable = "packages/aircraft_telemetry" },
-    { name = "trakr-alerts", editable = "packages/alerts" },
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-documents", editable = "packages/documents" },
-    { name = "trakr-identity", editable = "packages/identity" },
+    { name = "trakr-aircraft", editable = "src/packages/aircraft" },
+    { name = "trakr-aircraft-telemetry", editable = "src/packages/aircraft_telemetry" },
+    { name = "trakr-alerts", editable = "src/packages/alerts" },
+    { name = "trakr-core", editable = "src/packages/core" },
+    { name = "trakr-documents", editable = "src/packages/documents" },
+    { name = "trakr-identity", editable = "src/packages/identity" },
     { name = "uvicorn", specifier = ">=0.40.0,<0.41.0" },
 ]
 
 [[package]]
 name = "trakr-core"
 version = "0.1.0"
-source = { editable = "packages/core" }
+source = { editable = "src/packages/core" }
 dependencies = [
     { name = "aioboto3" },
     { name = "asyncpg" },
@@ -2543,7 +2543,7 @@ requires-dist = [
 [[package]]
 name = "trakr-documents"
 version = "0.1.0"
-source = { editable = "packages/documents" }
+source = { editable = "src/packages/documents" }
 dependencies = [
     { name = "trakr-core" },
     { name = "trakr-identity" },
@@ -2551,20 +2551,20 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
+    { name = "trakr-core", editable = "src/packages/core" },
+    { name = "trakr-identity", editable = "src/packages/identity" },
 ]
 
 [[package]]
 name = "trakr-identity"
 version = "0.1.0"
-source = { editable = "packages/identity" }
+source = { editable = "src/packages/identity" }
 dependencies = [
     { name = "trakr-core" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "trakr-persistence-worker"
@@ -2575,18 +2575,18 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "trakr-weather"
 version = "0.1.0"
-source = { editable = "packages/weather" }
+source = { editable = "src/packages/weather" }
 dependencies = [
     { name = "trakr-core" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+requires-dist = [{ name = "trakr-core", editable = "src/packages/core" }]
 
 [[package]]
 name = "typing-extensions"

@@ -12,17 +12,19 @@ Monorepo for the Trakr API, background workers, and the shared domain library. D
 │   ├── api/                    # FastAPI application (trakr-api)
 │   ├── persistence-worker/     # Placeholder worker
 │   └── anomaly-detector/       # Placeholder worker
-└── packages/
-    ├── core/                   # cross-cutting: auth primitives, clients, database, Celery
-    ├── identity/
-    ├── documents/
-    ├── alerts/
-    ├── aircraft/
-    ├── weather/
-    └── anomalies/
+└── src/
+    └── packages/
+        ├── core/               # src/trakr_core
+        ├── identity/           # src/identity
+        ├── documents/          # src/documents
+        ├── alerts/             # src/alerts
+        ├── aircraft/           # src/aircraft
+        ├── aircraft_telemetry/ # src/aircraft_telemetry
+        ├── weather/            # src/weather
+        └── anomalies/          # src/anomalies
 ```
 
-`core` holds shared code: configuration, database, logging, Celery, security helpers, and base models, repositories, schemas, and services. Each domain package has `api`, `models`, `repository`, `schemas`, `services`, `tasks`, and `tests`. `trakr-api` depends on the domain packages and mounts their routers.
+`core` holds shared code: configuration, database, logging, Celery, security helpers, and base models, repositories, schemas, and services. Each domain package uses a src layout (`src/packages/aircraft/src/aircraft`) with `api`, `models`, `repository`, `schemas`, `services`, `tasks`, and `tests`. `trakr-api` depends on the domain packages and mounts their routers.
 
 ## Requirements
 

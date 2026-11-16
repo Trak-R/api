@@ -1,1 +1,0 @@
-"""Aircraft telemetry domain."""

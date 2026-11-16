@@ -9,7 +9,7 @@ dependencies = []
 package = false
 
 [tool.uv.workspace]
-members = ["apps/*", "packages/*"]
+members = ["apps/*", "src/packages/*"]
 
 [dependency-groups]
 dev = [

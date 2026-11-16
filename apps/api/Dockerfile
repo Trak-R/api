@@ -22,18 +22,19 @@ COPY pyproject.toml uv.lock ./
 COPY apps/api/pyproject.toml apps/api/pyproject.toml
 COPY apps/persistence-worker/pyproject.toml apps/persistence-worker/pyproject.toml
 COPY apps/anomaly-detector/pyproject.toml apps/anomaly-detector/pyproject.toml
-COPY packages/core/pyproject.toml packages/core/pyproject.toml
-COPY packages/identity/pyproject.toml packages/identity/pyproject.toml
-COPY packages/documents/pyproject.toml packages/documents/pyproject.toml
-COPY packages/alerts/pyproject.toml packages/alerts/pyproject.toml
-COPY packages/aircraft/pyproject.toml packages/aircraft/pyproject.toml
-COPY packages/weather/pyproject.toml packages/weather/pyproject.toml
-COPY packages/anomalies/pyproject.toml packages/anomalies/pyproject.toml
+COPY src/packages/core/pyproject.toml src/packages/core/pyproject.toml
+COPY src/packages/identity/pyproject.toml src/packages/identity/pyproject.toml
+COPY src/packages/documents/pyproject.toml src/packages/documents/pyproject.toml
+COPY src/packages/alerts/pyproject.toml src/packages/alerts/pyproject.toml
+COPY src/packages/aircraft/pyproject.toml src/packages/aircraft/pyproject.toml
+COPY src/packages/aircraft_telemetry/pyproject.toml src/packages/aircraft_telemetry/pyproject.toml
+COPY src/packages/weather/pyproject.toml src/packages/weather/pyproject.toml
+COPY src/packages/anomalies/pyproject.toml src/packages/anomalies/pyproject.toml
 
 RUN uv sync --frozen --package trakr-api --no-dev --no-install-project --no-install-workspace
 
 COPY apps/api apps/api
-COPY packages packages
+COPY src/packages src/packages
 
 RUN uv sync --frozen --package trakr-api --no-dev
 

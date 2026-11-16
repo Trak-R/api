@@ -92,7 +92,7 @@ services:
       - "8000:8000"
     volumes:
       - ./apps/api/src:/app/apps/api/src
-      - ./packages/core/src:/app/packages/core/src
+      - ./src/packages/core/src:/app/src/packages/core/src
     depends_on:
       db:
         condition: service_healthy
@@ -129,7 +129,7 @@ services:
       S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
     volumes:
       - ./apps/api/src:/app/apps/api/src
-      - ./packages/core/src:/app/packages/core/src
+      - ./src/packages/core/src:/app/src/packages/core/src
       - ./apps/api/scripts:/app/apps/api/scripts
     depends_on:
       db:
@@ -164,7 +164,7 @@ services:
       S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
     volumes:
       - ./apps/api/src:/app/apps/api/src
-      - ./packages/core/src:/app/packages/core/src
+      - ./src/packages/core/src:/app/src/packages/core/src
       - ./apps/api/scripts:/app/apps/api/scripts
     depends_on:
       db:
