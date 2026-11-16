@@ -4,7 +4,6 @@ from typing import Optional, TYPE_CHECKING
 from sqlmodel import Field, Relationship
 
 from trakr_core.models.base import BaseModel
-from identity.models.enums import RoleType
 
 if TYPE_CHECKING:
     from identity.models.user import User

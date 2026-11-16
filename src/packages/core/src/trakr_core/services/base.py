@@ -7,7 +7,6 @@ from querymate import Querymate
 from sqlmodel import SQLModel
 
 from trakr_core.auth.context import get_current_user_from_context, require_current_user
-from trakr_core.database import AsyncSessionLocal
 from trakr_core.exceptions import NotFoundError
 from trakr_core.logging import get_logger
 from trakr_core.repository.base import BaseRepository

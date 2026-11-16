@@ -1,9 +1,6 @@
 """Base model classes using SQLModel."""
-from datetime import datetime
-from typing import Optional
 
-from sqlalchemy import Column, DateTime, func
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel
 
 
 class TimestampMixin:

@@ -13,7 +13,7 @@ from trakr_core.exceptions import (
 from trakr_core.auth.security import create_access_token, get_password_hash, settings, verify_password
 from identity.models.enums import RoleType
 from identity.models.user import User
-from trakr_core.auth.schemas import Token, UserLogin, UserRegister, UserResponse, RoleResponse
+from trakr_core.auth.schemas import Token, UserLogin, UserRegister, UserResponse
 from trakr_core.services.base import BaseService
 from identity.services.role import RoleService
 

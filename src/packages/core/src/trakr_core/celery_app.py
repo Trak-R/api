@@ -35,7 +35,6 @@ celery_app.conf.update(
     result_expires=3600,  # 1 hour
 )
 
-from celery.schedules import crontab
 
 celery_app.conf.beat_schedule = {
     "run-example-task-daily": {
