@@ -1,0 +1,33 @@
+[project]
+name = "trakr-api"
+version = "0.1.0"
+description = "Trakr FastAPI application"
+authors = [
+    {name = "Chris Rinaldi", email = "crinaldi44@gmail.com"}
+]
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+    "trakr-identity",
+    "trakr-documents",
+    "trakr-discovery",
+    "trakr-reports",
+    "trakr-review",
+    "trakr-notifications",
+    "uvicorn>=0.40.0,<0.41.0",
+    "alembic>=1.18.1,<2.0.0",
+    "psycopg2-binary>=2.9.10,<3.0.0",
+]
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+trakr-identity = { workspace = true }
+trakr-documents = { workspace = true }
+trakr-discovery = { workspace = true }
+trakr-reports = { workspace = true }
+trakr-review = { workspace = true }
+trakr-notifications = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

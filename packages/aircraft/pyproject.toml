@@ -1,0 +1,28 @@
+[project]
+name = "trakr-aircraft"
+version = "0.1.0"
+description = "Trakr aircraft domain"
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+]
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "aircraft" = "src" }
+packages = [
+    "aircraft",
+    "aircraft.api",
+    "aircraft.models",
+    "aircraft.repository",
+    "aircraft.schemas",
+    "aircraft.services",
+    "aircraft.tasks",
+    "aircraft.tests",
+]

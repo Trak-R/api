@@ -1,0 +1,1 @@
+"""Persistence worker for Trakr."""

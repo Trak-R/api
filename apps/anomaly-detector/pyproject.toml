@@ -1,0 +1,18 @@
+[project]
+name = "trakr-anomaly-detector"
+version = "0.1.0"
+description = "Trakr anomaly detector"
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+]
+
+[project.scripts]
+trakr-anomaly-detector = "trakr_anomaly_detector.main:main"
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

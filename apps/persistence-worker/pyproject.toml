@@ -1,0 +1,18 @@
+[project]
+name = "trakr-persistence-worker"
+version = "0.1.0"
+description = "Trakr persistence worker"
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+]
+
+[project.scripts]
+trakr-persistence-worker = "trakr_persistence_worker.main:main"
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

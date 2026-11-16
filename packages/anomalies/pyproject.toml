@@ -1,0 +1,28 @@
+[project]
+name = "trakr-anomalies"
+version = "0.1.0"
+description = "Trakr anomalies domain"
+requires-python = ">=3.12"
+dependencies = [
+    "trakr-core",
+]
+
+[tool.uv.sources]
+trakr-core = { workspace = true }
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "anomalies" = "src" }
+packages = [
+    "anomalies",
+    "anomalies.api",
+    "anomalies.models",
+    "anomalies.repository",
+    "anomalies.schemas",
+    "anomalies.services",
+    "anomalies.tasks",
+    "anomalies.tests",
+]

@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:16-alpine
-    container_name: vibeify-db
+    container_name: trakr-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -20,7 +20,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: vibeify-redis
+    container_name: trakr-redis
     ports:
       - "6379:6379"
     volumes:
@@ -34,7 +34,7 @@ services:
 
   minio:
     image: minio/minio:latest
-    container_name: vibeify-minio
+    container_name: trakr-minio
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
@@ -53,8 +53,8 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: vibeify-api
+      dockerfile: apps/api/Dockerfile
+    container_name: trakr-api
     environment:
       # Database connection
       DB_HOST: db
@@ -67,7 +67,7 @@ services:
       
       # API Settings
       API_V1_PREFIX: /api/v1
-      PROJECT_NAME: Vibeify API
+      PROJECT_NAME: Trakr API
       VERSION: 0.1.0
       DEBUG: "true"
       
@@ -91,9 +91,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./src:/app/src
-      - ./pyproject.toml:/app/pyproject.toml
-      - ./poetry.lock:/app/poetry.lock
+      - ./apps/api/src:/app/apps/api/src
+      - ./packages/core/src:/app/packages/core/src
     depends_on:
       db:
         condition: service_healthy
@@ -101,13 +100,13 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
-    command: poetry run uvicorn vibeify_api.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn trakr_api.main:app --host 0.0.0.0 --port 8000 --reload
 
   celery:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: vibeify-celery
+      dockerfile: apps/api/Dockerfile
+    container_name: trakr-celery
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -116,7 +115,7 @@ services:
       DB_NAME: vibeify
       
       API_V1_PREFIX: /api/v1
-      PROJECT_NAME: Vibeify API
+      PROJECT_NAME: Trakr API
       VERSION: 0.1.0
       DEBUG: "true"
       
@@ -129,10 +128,9 @@ services:
       S3_BUCKET_NAME: ${S3_BUCKET_NAME:-vibeify-documents}
       S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
     volumes:
-      - ./src:/app/src
-      - ./pyproject.toml:/app/pyproject.toml
-      - ./poetry.lock:/app/poetry.lock
-      - ./scripts:/app/scripts
+      - ./apps/api/src:/app/apps/api/src
+      - ./packages/core/src:/app/packages/core/src
+      - ./apps/api/scripts:/app/apps/api/scripts
     depends_on:
       db:
         condition: service_healthy
@@ -140,13 +138,13 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
-    command: sh -c "pip install watchfiles && python scripts/celery-reload.py -A vibeify_api.core.celery_app worker --loglevel=info"
+    command: sh -c "uv pip install --python /app/.venv/bin/python watchfiles && python apps/api/scripts/celery-reload.py -A trakr_api.celery worker --loglevel=info"
 
   celery-beat:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: vibeify-celery-beat
+      dockerfile: apps/api/Dockerfile
+    container_name: trakr-celery-beat
     environment:
       # Database connection
       DB_HOST: db
@@ -165,10 +163,9 @@ services:
       S3_BUCKET_NAME: ${S3_BUCKET_NAME:-vibeify-documents}
       S3_ENDPOINT_URL: ${S3_ENDPOINT_URL:-http://minio:9000}
     volumes:
-      - ./src:/app/src
-      - ./pyproject.toml:/app/pyproject.toml
-      - ./poetry.lock:/app/poetry.lock
-      - ./scripts:/app/scripts
+      - ./apps/api/src:/app/apps/api/src
+      - ./packages/core/src:/app/packages/core/src
+      - ./apps/api/scripts:/app/apps/api/scripts
     depends_on:
       db:
         condition: service_healthy
@@ -176,11 +173,11 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
-    command: sh -c "pip install watchfiles && python scripts/celery-reload.py -A vibeify_api.core.celery_app beat --loglevel=info"
+    command: sh -c "uv pip install --python /app/.venv/bin/python watchfiles && python apps/api/scripts/celery-reload.py -A trakr_api.celery beat --loglevel=info"
 
   openapi-generator:
     image: node:20-alpine
-    container_name: vibeify-openapi-generator
+    container_name: trakr-openapi-generator
     working_dir: /app
     environment:
       TAR: 1
@@ -201,7 +198,7 @@ services:
         echo 'Fetching OpenAPI spec...' &&
         curl -f http://api:8000/openapi.json -o /tmp/openapi.json &&
         echo 'Generating JavaScript client...' &&
-        openapi-generator-cli generate -i /tmp/openapi.json -g javascript -o /app/downloads/javascript-client --additional-properties=supportsES6=true,npmName=vibeify-api-client &&
+        openapi-generator-cli generate -i /tmp/openapi.json -g javascript -o /app/downloads/javascript-client --additional-properties=supportsES6=true,npmName=trakr-api-client &&
         echo 'JavaScript client generated successfully in downloads/javascript-client' &&
         if [ \"$$TAR\" = \"1\" ]; then
           echo 'Installing dependencies and creating npm package...' &&
