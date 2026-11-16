@@ -5,12 +5,10 @@
       <sourceFolder url="file://$MODULE_DIR$/apps/api/src" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="trakr-discovery" exported="" />
+    <orderEntry type="module" module-name="trakr-alerts" exported="" />
     <orderEntry type="module" module-name="trakr-identity" exported="" />
     <orderEntry type="module" module-name="trakr-documents" exported="" />
-    <orderEntry type="module" module-name="trakr-review" exported="" />
     <orderEntry type="module" module-name="trakr-core" exported="" />
-    <orderEntry type="module" module-name="trakr-reports" exported="" />
-    <orderEntry type="module" module-name="trakr-notifications" exported="" />
+    <orderEntry type="jdk" jdkName="~/Documents/repos/trakr/api/.venv" jdkType="Python SDK" />
   </component>
 </module>

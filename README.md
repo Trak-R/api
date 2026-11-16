@@ -16,16 +16,13 @@ Monorepo for the Trakr API, background workers, and the shared domain library. D
     ├── core/                   # cross-cutting: auth primitives, clients, database, Celery
     ├── identity/
     ├── documents/
-    ├── discovery/
-    ├── reports/
-    ├── review/
-    ├── notifications/
+    ├── alerts/
     ├── aircraft/
     ├── weather/
     └── anomalies/
 ```
 
-`core` holds shared code: configuration, database, logging, Celery, HTTP clients, security helpers, and base models, repositories, schemas, and services. Each domain package has `api`, `models`, `repository`, `schemas`, `services`, `tasks`, and `tests`. `trakr-api` depends on the domain packages and mounts their routers.
+`core` holds shared code: configuration, database, logging, Celery, security helpers, and base models, repositories, schemas, and services. Each domain package has `api`, `models`, `repository`, `schemas`, `services`, `tasks`, and `tests`. `trakr-api` depends on the domain packages and mounts their routers.
 
 ## Requirements
 
@@ -57,8 +54,6 @@ DB_PASSWORD=postgres
 DB_NAME=vibeify
 
 REDIS_URL=redis://localhost:6379/0
-
-# SERPER_API_KEY=your-serper-api-key
 ```
 
 Create the database if it does not exist:

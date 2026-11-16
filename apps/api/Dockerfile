@@ -25,10 +25,7 @@ COPY apps/anomaly-detector/pyproject.toml apps/anomaly-detector/pyproject.toml
 COPY packages/core/pyproject.toml packages/core/pyproject.toml
 COPY packages/identity/pyproject.toml packages/identity/pyproject.toml
 COPY packages/documents/pyproject.toml packages/documents/pyproject.toml
-COPY packages/discovery/pyproject.toml packages/discovery/pyproject.toml
-COPY packages/reports/pyproject.toml packages/reports/pyproject.toml
-COPY packages/review/pyproject.toml packages/review/pyproject.toml
-COPY packages/notifications/pyproject.toml packages/notifications/pyproject.toml
+COPY packages/alerts/pyproject.toml packages/alerts/pyproject.toml
 COPY packages/aircraft/pyproject.toml packages/aircraft/pyproject.toml
 COPY packages/weather/pyproject.toml packages/weather/pyproject.toml
 COPY packages/anomalies/pyproject.toml packages/anomalies/pyproject.toml

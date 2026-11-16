@@ -10,13 +10,10 @@ from trakr_api.api.jobs import router as jobs_router
 from identity.api.auth import router as auth_router
 from trakr_core.config import get_settings
 from trakr_core.database import close_db, init_db
-from discovery.api import router as discovery_router
 from documents.api import router as documents_router
 from trakr_core.exceptions import ServiceException, http_error_handler, request_validation_exception_handler
 from identity.api import router as users_router
 from trakr_core.logging import get_logger, setup_logging
-from reports.api import router as reports_router
-from review.api import router as review_items_router
 from trakr_core.schemas.errors import ErrorResponse
 
 api_router = APIRouter()
@@ -24,9 +21,6 @@ api_router.include_router(auth_router)
 api_router.include_router(users_router)
 api_router.include_router(documents_router)
 api_router.include_router(jobs_router)
-api_router.include_router(reports_router)
-api_router.include_router(review_items_router)
-api_router.include_router(discovery_router)
 
 settings = get_settings()
 

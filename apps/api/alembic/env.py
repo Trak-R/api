@@ -13,13 +13,10 @@ from trakr_core.config import get_settings
 
 # Import all models to ensure they are registered with Base.metadata
 # This is necessary for autogenerate to detect model changes
-from discovery.models.crawled_page import CrawledPage  # noqa: F401
+from alerts.models.alert import Alert  # noqa: F401
 from documents.models.document import Document  # noqa: F401
 from identity.models.role import Role  # noqa: F401
 from identity.models.user import User  # noqa: F401
-from notifications.models.notification import Notification  # noqa: F401
-from reports.models.reports import Report  # noqa: F401
-from review.models.review_item import ReviewItem  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

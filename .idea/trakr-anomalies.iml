@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$/packages/anomalies">
       <sourceFolder url="file://$MODULE_DIR$/packages/anomalies/src" />
     </content>
+    <orderEntry type="jdk" jdkName="~/Documents/repos/trakr/api/.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="trakr-core" exported="" />
   </component>

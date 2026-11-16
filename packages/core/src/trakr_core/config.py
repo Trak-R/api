@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # API Settings
     API_V1_PREFIX: str = "/api/v1"
     PROJECT_NAME: str = "Trakr API"
-    PROJECT_DESCRIPTION: str = "Contains services for data discovery, extraction, and enrichment."
+    PROJECT_DESCRIPTION: str = "Trakr API."
     VERSION: str = "0.1.0"
     DEBUG: bool = False
 
@@ -54,13 +54,6 @@ class Settings(BaseSettings):
     def celery_result_backend(self) -> str:
         """Get Celery result backend URL."""
         return self.CELERY_RESULT_BACKEND or self.REDIS_URL
-
-    SERPER_API_KEY: Optional[str] = None
-    SERPER_BASE_URL: str = "https://google.serper.dev"
-    SERPER_TIMEOUT_SECONDS: float = 15.0
-    SERPER_MAX_CONCURRENCY: int = 5
-    SERPER_MIN_INTERVAL_SECONDS: float = 0.0
-    SERPER_MAX_RETRIES: int = 2
 
     AWS_ACCESS_KEY_ID: Optional[str] = None
     AWS_SECRET_ACCESS_KEY: Optional[str] = None

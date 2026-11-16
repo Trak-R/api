@@ -6,17 +6,14 @@ requires-python = ">=3.12"
 members = [
     "trakr",
     "trakr-aircraft",
+    "trakr-alerts",
     "trakr-anomalies",
     "trakr-anomaly-detector",
     "trakr-api",
     "trakr-core",
-    "trakr-discovery",
     "trakr-documents",
     "trakr-identity",
-    "trakr-notifications",
     "trakr-persistence-worker",
-    "trakr-reports",
-    "trakr-review",
     "trakr-weather",
 ]
 
@@ -2423,6 +2420,17 @@ dependencies = [
 requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
 
 [[package]]
+name = "trakr-alerts"
+version = "0.1.0"
+source = { editable = "packages/alerts" }
+dependencies = [
+    { name = "trakr-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
+
+[[package]]
 name = "trakr-anomalies"
 version = "0.1.0"
 source = { editable = "packages/anomalies" }
@@ -2451,13 +2459,10 @@ source = { editable = "apps/api" }
 dependencies = [
     { name = "alembic" },
     { name = "psycopg2-binary" },
+    { name = "trakr-alerts" },
     { name = "trakr-core" },
-    { name = "trakr-discovery" },
     { name = "trakr-documents" },
     { name = "trakr-identity" },
-    { name = "trakr-notifications" },
-    { name = "trakr-reports" },
-    { name = "trakr-review" },
     { name = "uvicorn" },
 ]
 
@@ -2465,13 +2470,10 @@ dependencies = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.18.1,<2.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10,<3.0.0" },
+    { name = "trakr-alerts", editable = "packages/alerts" },
     { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-discovery", editable = "packages/discovery" },
     { name = "trakr-documents", editable = "packages/documents" },
     { name = "trakr-identity", editable = "packages/identity" },
-    { name = "trakr-notifications", editable = "packages/notifications" },
-    { name = "trakr-reports", editable = "packages/reports" },
-    { name = "trakr-review", editable = "packages/review" },
     { name = "uvicorn", specifier = ">=0.40.0,<0.41.0" },
 ]
 
@@ -2515,21 +2517,6 @@ requires-dist = [
 ]
 
 [[package]]
-name = "trakr-discovery"
-version = "0.1.0"
-source = { editable = "packages/discovery" }
-dependencies = [
-    { name = "trakr-core" },
-    { name = "trakr-identity" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
-]
-
-[[package]]
 name = "trakr-documents"
 version = "0.1.0"
 source = { editable = "packages/documents" }
@@ -2556,17 +2543,6 @@ dependencies = [
 requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
 
 [[package]]
-name = "trakr-notifications"
-version = "0.1.0"
-source = { editable = "packages/notifications" }
-dependencies = [
-    { name = "trakr-core" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
-
-[[package]]
 name = "trakr-persistence-worker"
 version = "0.1.0"
 source = { editable = "apps/persistence-worker" }
@@ -2576,36 +2552,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "trakr-core", editable = "packages/core" }]
-
-[[package]]
-name = "trakr-reports"
-version = "0.1.0"
-source = { editable = "packages/reports" }
-dependencies = [
-    { name = "trakr-core" },
-    { name = "trakr-identity" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
-]
-
-[[package]]
-name = "trakr-review"
-version = "0.1.0"
-source = { editable = "packages/review" }
-dependencies = [
-    { name = "trakr-core" },
-    { name = "trakr-identity" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "trakr-core", editable = "packages/core" },
-    { name = "trakr-identity", editable = "packages/identity" },
-]
 
 [[package]]
 name = "trakr-weather"

@@ -1,7 +1,7 @@
 [project]
-name = "trakr-notifications"
+name = "trakr-alerts"
 version = "0.1.0"
-description = "Trakr notifications domain"
+description = "Trakr alerts domain"
 requires-python = ">=3.12"
 dependencies = [
     "trakr-core",
@@ -15,8 +15,8 @@ requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = { "notifications" = "src" }
+package-dir = { "alerts" = "src" }
 packages = [
-    "notifications",
-    "notifications.models",
+    "alerts",
+    "alerts.models",
 ]

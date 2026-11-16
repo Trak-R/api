@@ -4,17 +4,14 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr.iml" filepath="$PROJECT_DIR$/.idea/trakr.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-aircraft.iml" filepath="$PROJECT_DIR$/.idea/trakr-aircraft.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-alerts.iml" filepath="$PROJECT_DIR$/.idea/trakr-alerts.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-anomalies.iml" filepath="$PROJECT_DIR$/.idea/trakr-anomalies.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-anomaly-detector.iml" filepath="$PROJECT_DIR$/.idea/trakr-anomaly-detector.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-api.iml" filepath="$PROJECT_DIR$/.idea/trakr-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-core.iml" filepath="$PROJECT_DIR$/.idea/trakr-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-discovery.iml" filepath="$PROJECT_DIR$/.idea/trakr-discovery.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-documents.iml" filepath="$PROJECT_DIR$/.idea/trakr-documents.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-identity.iml" filepath="$PROJECT_DIR$/.idea/trakr-identity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-notifications.iml" filepath="$PROJECT_DIR$/.idea/trakr-notifications.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-persistence-worker.iml" filepath="$PROJECT_DIR$/.idea/trakr-persistence-worker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-reports.iml" filepath="$PROJECT_DIR$/.idea/trakr-reports.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/trakr-review.iml" filepath="$PROJECT_DIR$/.idea/trakr-review.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trakr-weather.iml" filepath="$PROJECT_DIR$/.idea/trakr-weather.iml" />
     </modules>
   </component>
