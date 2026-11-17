@@ -1,4 +1,5 @@
 """Base service for business logic layer."""
+
 from __future__ import annotations
 
 from typing import Any, Generic, List, Optional, Type, TypeVar
@@ -7,12 +8,12 @@ from querymate import Querymate
 from sqlmodel import SQLModel
 
 from trakr_core.auth.context import get_current_user_from_context, require_current_user
-from trakr_core.database import AsyncSessionLocal
 from trakr_core.exceptions import NotFoundError
 from trakr_core.logging import get_logger
 from trakr_core.repository.base import BaseRepository
 
 ModelType = TypeVar("ModelType", bound=SQLModel)
+
 
 class BaseService(Generic[ModelType]):
     """Generic base service for business logic operations.
@@ -148,21 +149,21 @@ class BaseService(Generic[ModelType]):
             List of model instances (not serialized)
         """
         return await self.repository.query_raw(query)
-    
+
     def get_current_user(self) -> Optional[Any]:
         """Get current user from request context.
-        
+
         Returns:
             Current user or None if not authenticated
         """
         return get_current_user_from_context()
-    
+
     def require_current_user(self) -> Any:
         """Get current user from context, raising error if not set.
-        
+
         Returns:
             Current user instance
-            
+
         Raises:
             AuthenticationError: If no user in context
         """

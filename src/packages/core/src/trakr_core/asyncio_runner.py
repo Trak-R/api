@@ -38,4 +38,3 @@ def run(coro: Coroutine[Any, Any, T]) -> T:
     """Run a coroutine on the per-process event loop."""
     loop = _get_or_create_loop()
     return loop.run_until_complete(coro)
-

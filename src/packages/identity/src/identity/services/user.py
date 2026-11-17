@@ -1,4 +1,5 @@
 """User service for business logic."""
+
 from datetime import timedelta
 
 from querymate import Querymate
@@ -10,10 +11,15 @@ from trakr_core.exceptions import (
     NotFoundError,
     ValidationError,
 )
-from trakr_core.auth.security import create_access_token, get_password_hash, settings, verify_password
+from trakr_core.auth.security import (
+    create_access_token,
+    get_password_hash,
+    settings,
+    verify_password,
+)
 from identity.models.enums import RoleType
 from identity.models.user import User
-from trakr_core.auth.schemas import Token, UserLogin, UserRegister, UserResponse, RoleResponse
+from trakr_core.auth.schemas import Token, UserLogin, UserRegister, UserResponse
 from trakr_core.services.base import BaseService
 from identity.services.role import RoleService
 
@@ -63,7 +69,9 @@ class UserService(BaseService[User]):
         user = users[0]
 
         # Verify password
-        if not user.hashed_password or not verify_password(user_data.password, user.hashed_password):
+        if not user.hashed_password or not verify_password(
+            user_data.password, user.hashed_password
+        ):
             raise AuthenticationError()
 
         if not user.is_active:
@@ -107,19 +115,18 @@ class UserService(BaseService[User]):
         role_service = RoleService()
         default_role = await role_service.get_by_name(RoleType.USER.value)
         if not default_role:
-            raise ValidationError("Default user role not found. Please ensure roles are initialized.")
+            raise ValidationError(
+                "Default user role not found. Please ensure roles are initialized."
+            )
 
         try:
             user_create = User(
-                    email=user_data.email,
-                    username=user_data.username,
-                    full_name=user_data.full_name,
-                    hashed_password=hashed_password,
-                    role_id=default_role.id,
-                )
-            await self.create(
-                user_create
+                email=user_data.email,
+                username=user_data.username,
+                full_name=user_data.full_name,
+                hashed_password=hashed_password,
+                role_id=default_role.id,
             )
+            await self.create(user_create)
         except ValueError as e:
             raise ValidationError(str(e)) from e
-

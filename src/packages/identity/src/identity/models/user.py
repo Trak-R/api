@@ -1,4 +1,5 @@
 """User model."""
+
 from typing import Optional, TYPE_CHECKING
 
 from pydantic import ConfigDict
@@ -23,12 +24,10 @@ class User(BaseModel, table=True):
     is_active: bool = Field(default=True)
     hashed_password: Optional[str] = Field(default=None)
     role_id: int = Field(foreign_key="roles.id", index=True)
-    
+
     # Relationship
     role: Optional["Role"] = Relationship(back_populates="users")
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )

@@ -1,4 +1,5 @@
 """Logging configuration for the application."""
+
 import logging
 import sys
 from pathlib import Path
@@ -12,11 +13,11 @@ def setup_logging() -> None:
     """Configure application-wide logging."""
     # Determine log level from settings
     log_level = logging.DEBUG if settings.DEBUG else logging.INFO
-    
+
     # Create logs directory if it doesn't exist
     log_dir = Path("logs")
     log_dir.mkdir(exist_ok=True)
-    
+
     # Configure root logger
     logging.basicConfig(
         level=log_level,
@@ -27,7 +28,7 @@ def setup_logging() -> None:
             logging.FileHandler(log_dir / "app.log"),  # File output
         ],
     )
-    
+
     # Set specific logger levels
     logging.getLogger("uvicorn").setLevel(logging.INFO)
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
@@ -38,10 +39,10 @@ def setup_logging() -> None:
 
 def get_logger(name: str) -> logging.Logger:
     """Get a logger instance for a module.
-    
+
     Args:
         name: Logger name (typically __name__)
-        
+
     Returns:
         Logger instance
     """

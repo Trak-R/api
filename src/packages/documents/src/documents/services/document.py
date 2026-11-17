@@ -1,4 +1,5 @@
 """Document service for business logic."""
+
 from pathlib import Path
 
 from fastapi import UploadFile
@@ -24,13 +25,11 @@ class DocumentService(BaseService[Document]):
         self.s3_repo = S3Repository()
 
     async def upload_file(
-        self,
-        file: UploadFile,
-        presigned: bool = True
+        self, file: UploadFile, presigned: bool = True
     ) -> DocumentUploadResponse:
         """Creates a document record from the input file buffer and generates a
         presigned upload URL for upload.
-        
+
         Args:
             file: The file being imported
 
@@ -62,14 +61,16 @@ class DocumentService(BaseService[Document]):
         upload_url = None
 
         if presigned:
-            upload_url = await self.s3_repo.generate_presigned_url(s3_key, operation="put_object")
+            upload_url = await self.s3_repo.generate_presigned_url(
+                s3_key, operation="put_object"
+            )
         else:
             await self.s3_repo.upload_file(s3_key, file.file)
 
         return DocumentUploadResponse(
             document=DocumentResponse.model_validate(document),
             upload_url=upload_url,
-            s3_key=s3_key
+            s3_key=s3_key,
         )
 
     async def list(
@@ -77,19 +78,20 @@ class DocumentService(BaseService[Document]):
         query: Querymate,
     ) -> PaginatedResponse[DocumentResponse]:
         """List documents with pagination.
-        
+
         Args:
             query: QueryMate instance with filters, sort, select, etc.
-            
+
         Returns:
             Paginated response with document instances
         """
-        results: PaginatedResponse[Document] = await self.repository.query_paginated(query)
-        
+        results: PaginatedResponse[Document] = await self.repository.query_paginated(
+            query
+        )
+
         # Add download URLs to each document
         items = []
         for doc in results.items:
-            
             # Generate presigned download URL
             try:
                 download_url = await self.s3_repo.generate_presigned_url(
@@ -100,27 +102,29 @@ class DocumentService(BaseService[Document]):
             except Exception:
                 # If URL generation fails, continue without it
                 pass
-            
+
             items.append(doc)
-        
+
         # Update results with modified items
         results.items = items
         return results
 
     async def get_download_url(self, document_id: int) -> str:
         """Get a presigned download URL for a document.
-        
+
         Args:
             document_id: Document ID
-            
+
         Returns:
             Presigned download URL
-            
+
         Raises:
             NotFoundError: If document not found
         """
         document = await self.get(document_id)
         if not document:
             raise NotFoundError("Document", document_id)
-        
-        return await self.s3_repo.generate_presigned_url(document.s3_key, operation="get_object")
+
+        return await self.s3_repo.generate_presigned_url(
+            document.s3_key, operation="get_object"
+        )

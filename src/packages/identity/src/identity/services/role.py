@@ -1,4 +1,5 @@
 """Role service for business logic."""
+
 from querymate import Querymate
 
 from identity.models.role import Role

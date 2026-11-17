@@ -1,4 +1,5 @@
 """Example Celery tasks for demonstration."""
+
 from datetime import datetime
 
 from trakr_core.celery_app import celery_app

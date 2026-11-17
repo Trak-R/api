@@ -1,4 +1,5 @@
 """Document enums."""
+
 from enum import Enum
 
 

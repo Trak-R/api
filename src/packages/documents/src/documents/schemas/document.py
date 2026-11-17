@@ -1,4 +1,5 @@
 """Document schemas."""
+
 import datetime
 from typing import Optional
 
@@ -24,10 +25,9 @@ class DocumentResponse(BaseModel):
     download_url: Optional[str] = None
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
+
 
 class DocumentUploadResponse(BaseModel):
     document: DocumentResponse
@@ -35,7 +35,5 @@ class DocumentUploadResponse(BaseModel):
     s3_key: str
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )

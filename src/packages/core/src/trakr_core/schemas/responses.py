@@ -1,4 +1,5 @@
 """Error response schemas."""
+
 from __future__ import annotations
 
 from typing import TypeVar
@@ -10,19 +11,18 @@ from querymate import PaginatedResponse, PaginationInfo
 
 T = TypeVar("T")
 
+
 class ListResponsePaginationInfo(PaginationInfo):
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
+
 
 class ListResponse[T](PaginatedResponse[T]):
     """Custom paginated response schema."""
+
     pagination: ListResponsePaginationInfo
 
     model_config = ConfigDict(
-        alias_generator=to_camel,
-        populate_by_name=True,
-        from_attributes=True
+        alias_generator=to_camel, populate_by_name=True, from_attributes=True
     )
