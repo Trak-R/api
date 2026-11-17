@@ -9,3 +9,5 @@ permissions:
 jobs:
   ci:
     uses: Trak-R/devops/.github/workflows/api.yml@main
+    secrets:
+      DEVOPS_TOKEN: ${{ secrets.DEVOPS_TOKEN }}
