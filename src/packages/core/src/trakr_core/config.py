@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "postgres"
     DB_NAME: str = "vibeify"
     LOG_LEVEL: str = "INFO"
-    LOG_FILE: Optional[str] = "logs/app.log"
+    LOG_FILE: Optional[str] = None
 
     @property
     def database_url(self) -> str:

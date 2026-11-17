@@ -14,19 +14,18 @@ def setup_logging() -> None:
     # Determine log level from settings
     log_level = logging.DEBUG if settings.DEBUG else logging.INFO
 
-    # Create logs directory if it doesn't exist
-    log_dir = Path("logs")
-    log_dir.mkdir(exist_ok=True)
+    handlers: list[logging.Handler] = [logging.StreamHandler(sys.stdout)]
+    if settings.LOG_FILE:
+        log_path = Path(settings.LOG_FILE)
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        handlers.append(logging.FileHandler(log_path))
 
     # Configure root logger
     logging.basicConfig(
         level=log_level,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[
-            logging.StreamHandler(sys.stdout),  # Console output
-            logging.FileHandler(log_dir / "app.log"),  # File output
-        ],
+        handlers=handlers,
     )
 
     # Set specific logger levels
