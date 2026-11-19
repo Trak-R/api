@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Trakr persistence worker"
 requires-python = ">=3.12"
 dependencies = [
+    "faststream[cli,kafka]>=0.7.8",
+    "trakr-aircraft-telemetry",
     "trakr-core",
 ]
 
@@ -12,6 +14,7 @@ trakr-persistence-worker = "trakr_persistence_worker.main:main"
 
 [tool.uv.sources]
 trakr-core = { workspace = true }
+trakr-aircraft-telemetry = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]

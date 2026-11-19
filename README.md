@@ -10,7 +10,7 @@ Monorepo for the Trakr API, background workers, and the shared domain library. D
 ├── uv.lock
 ├── apps/
 │   ├── api/                    # FastAPI application (trakr-api)
-│   ├── persistence-worker/     # Placeholder worker
+│   ├── persistence-worker/     # FastStream Kafka worker
 │   └── anomaly-detector/       # Placeholder worker
 └── src/
     └── packages/
@@ -32,6 +32,7 @@ Monorepo for the Trakr API, background workers, and the shared domain library. D
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - PostgreSQL >= 12
 - Redis >= 7 (Celery broker)
+- Kafka (persistence worker). `docker compose up -d` starts a single broker.
 
 ## Setup
 
@@ -56,6 +57,7 @@ DB_PASSWORD=postgres
 DB_NAME=vibeify
 
 REDIS_URL=redis://localhost:6379/0
+KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 ```
 
 Create the database if it does not exist:
@@ -85,10 +87,16 @@ uv run celery -A trakr_api.celery worker --loglevel=info
 uv run celery -A trakr_api.celery beat --loglevel=info
 ```
 
-Placeholder workers:
+Persistence worker (FastStream). Compose must be up so Kafka is reachable. The worker connects and idles until subscribers are added.
 
 ```bash
 uv run trakr-persistence-worker
+uv run faststream run trakr_persistence_worker.app:app --reload
+```
+
+Anomaly detector:
+
+```bash
 uv run trakr-anomaly-detector
 ```
 
@@ -100,7 +108,7 @@ Build context is the repository root so the image can install `trakr-core` with 
 docker compose up -d
 ```
 
-Postgres, Redis, and MinIO data volumes are unchanged from the previous Compose file.
+Postgres, Redis, and MinIO data volumes are unchanged from the previous Compose file. Compose also starts Kafka for the persistence worker.
 
 ## Development
 

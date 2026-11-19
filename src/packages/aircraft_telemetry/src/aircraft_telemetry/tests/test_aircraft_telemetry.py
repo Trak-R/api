@@ -6,7 +6,11 @@ import pytest
 from pydantic import ValidationError
 
 from aircraft_telemetry.models.enums import TransmissionType
-from aircraft_telemetry.schemas.aircraft_telemetry import AircraftTelemetryCreate
+from aircraft_telemetry.schemas.aircraft_telemetry import (
+    AircraftTelemetryCreate,
+    AircraftTelemetryResponse,
+    AircraftTelemetryUpdate,
+)
 
 
 SAMPLE = {
@@ -70,3 +74,46 @@ def test_explicit_zero_and_false_are_kept():
 def test_invalid_record_is_rejected(payload):
     with pytest.raises(ValidationError):
         AircraftTelemetryCreate.model_validate(payload)
+
+
+def test_update_can_omit_create_required_fields():
+    record = AircraftTelemetryUpdate.model_validate({"altitude": 0, "callsign": " "})
+
+    assert record.address is None
+    assert record.transmission_type is None
+    assert record.altitude == 0
+    assert record.callsign is None
+    assert record.model_dump(exclude_unset=True) == {"altitude": 0, "callsign": None}
+
+
+def test_update_inherits_address_normalization():
+    record = AircraftTelemetryUpdate.model_validate({"address": " abc123 "})
+
+    assert record.address == "ABC123"
+
+
+def test_response_reads_attributes():
+    class Row:
+        id = 7
+        address = "102B04"
+        transmission_type = TransmissionType.Unknown
+        observed_at = None
+        received_at = None
+        callsign = None
+        altitude = 31839
+        ground_speed = None
+        track = None
+        latitude = None
+        longitude = None
+        vertical_rate = None
+        squawk = None
+        alert = None
+        emergency = None
+        spi = None
+        is_on_ground = None
+
+    record = AircraftTelemetryResponse.model_validate(Row())
+
+    assert record.id == 7
+    assert record.address == "102B04"
+    assert record.altitude == 31839
