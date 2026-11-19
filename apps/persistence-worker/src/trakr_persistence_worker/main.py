@@ -1,8 +1,15 @@
-"""Placeholder entrypoint for the persistence worker."""
+"""Entrypoint for the persistence worker."""
+
+import asyncio
+
+from trakr_core.logging import setup_logging
+
+from trakr_persistence_worker.app import app
 
 
 def main() -> None:
-    print("trakr-persistence-worker is not implemented")
+    setup_logging()
+    asyncio.run(app.run())
 
 
 if __name__ == "__main__":
